@@ -2,6 +2,7 @@ import streamlit as st
 import time
 from till import Till
 from calculator import Calculator
+from cardmachine import CardMachine
 
 st.set_page_config(
     page_title="Cashier Balance System",
@@ -20,6 +21,12 @@ if "till1" not in st.session_state:
     st.session_state.till1= None
 if "till2" not in st.session_state:
     st.session_state.till2 = None
+
+if "cardmachine1" not in st.session_state:
+    st.session_state.cardmachine1 = None
+if "cardmachine2" not in st.session_state:
+    st.session_state.cardmachine2 = None
+
 
 if st.session_state.step == 0:
     st.subheader("Select Number of Tills")
@@ -106,4 +113,36 @@ elif st.session_state.step == 1:
 
 elif st.session_state.step == 2:
     st.write("Let's check the money in the card machine.")
-    st.write(st.session_state["till2"].get_fifty())
+    if st.session_state["number_of_tills"] == 1:
+        till_cardmachine_amount = st.number_input("Enter the amount in card machine: ", min_value=0)
+        till_cardmachine_no_of_transactions = st.number_input("Enter the no of transactions in card machine: ", min_value=0)
+        st.session_state["cardmachine1"] = CardMachine(till_cardmachine_amount, till_cardmachine_no_of_transactions)
+
+    if st.session_state["number_of_tills"] == 2:
+        col1, col2 = st.columns(2)
+        with col1:
+            st.header("Till 1")
+            till1_cardmachine_amount = st.number_input("Enter the amount in card machine connected to till 1: ", min_value=0)
+            till1_cardmachine_no_of_transactions = st.number_input("Enter the no of transactions in card machine connected to till 1: ", min_value=0)
+            st.session_state["cardmachine1"] = CardMachine(till1_cardmachine_amount, till1_cardmachine_no_of_transactions)
+        with col2:
+            st.header("Till 2")
+            till2_cardmachine_amount = st.number_input("Enter the amount in card machine connected to till 2: ", min_value=0)
+            till2_cardmachine_no_of_transactions = st.number_input("Enter the no of transactions in card machine connected to till 2: ", min_value=0)
+            st.session_state["cardmachine2"] = CardMachine(till2_cardmachine_amount, till2_cardmachine_no_of_transactions)
+            
+    
+    if st.button("Enter the cardmachine details"):
+        st.session_state.step = 3
+        with st.spinner("Calculating transactions"):
+            time.sleep(1)
+            st.rerun()
+elif st.session_state.step == 3:
+    st.write("this is the next step")
+    calculator = Calculator(st.session_state.till1, st.session_state.cardmachine1, st.session_state.till2, st.session_state.cardmachine2)
+    A,B,C,D,E = calculator.calcualte_ABCED()
+    st.write("A is", A)
+    st.write("B is", B)
+    st.write("C is", C)
+    st.write("D is", D)
+    st.write("E is", E)
