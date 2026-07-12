@@ -1,5 +1,6 @@
 from till import Till
 from cardmachine import CardMachine
+from datetime import datetime
 
 class Calculator:
     def __init__(self, till1 : Till,  cardmachine1 : CardMachine, till2 : Till=None, cardmachine2 : CardMachine=None):
@@ -69,10 +70,12 @@ class Calculator:
         A = self.total_cash()
         B = self.total_funds()
         C = B - A
+        today = datetime.now().day
         if self.till2:
-            D = A - 200
+            D = (A - 200) + (today / 100)
+            
         else:
-            D = A - 100
+            D = (A - 100) + (today / 100)
         E = B - C - D
 
         return A, B, C, D, E
