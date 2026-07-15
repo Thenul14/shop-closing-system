@@ -63,7 +63,11 @@ class Calculator:
         
         cardTotal = self.total_cash_on_machines()
 
-        return cashTotal + cardTotal
+        if self.till2:
+            return (cashTotal + cardTotal) - 200
+        else:
+            return (cashTotal + cardTotal) - 100
+        
 
 
     def calcualte_ABCED(self):
