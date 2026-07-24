@@ -1,5 +1,5 @@
 class Till:
-    def __init__(self, fifty, twenty, ten, five, two, one, fiftyp, twentyp, tenp, fivep, twop, onep):
+    def __init__(self, fifty, twenty, ten, five, two, one, fiftyp, twentyp, tenp, fivep, twop, onep, cardmachineDetails):
         self.fifty = fifty
         self.twenty = twenty
         self.ten = ten
@@ -12,6 +12,7 @@ class Till:
         self.fivep = fivep
         self.twop = twop
         self.onep = onep
+        self.cardmachineDetails = cardmachineDetails
     
     #getter methods
     
@@ -50,6 +51,9 @@ class Till:
     
     def get_onep(self):
         return self.onep
+
+    def get_cardmachineDetails(self):
+        return self.cardmachineDetails
     
 
     #setter methods
@@ -89,4 +93,7 @@ class Till:
     
     def set_onep(self, onep):
         self.onep = onep
+
+    def set_cardmachineDetails(self, cardmachineDetails):
+        self.cardmachineDetails = cardmachineDetails
     

@@ -3,11 +3,13 @@ from cardmachine import CardMachine
 from datetime import datetime
 
 class Calculator:
-    def __init__(self, till1 : Till,  cardmachine1 : CardMachine, till2 : Till=None, cardmachine2 : CardMachine=None):
+    def __init__(self, till1 : Till,  cardmachine1 : CardMachine, cardmachine1_on_till : CardMachine, till2 : Till=None, cardmachine2 : CardMachine=None, cardmachine2_on_till : CardMachine=None):
         self.till1 = till1
         self.till2 = till2
         self.cardmachine1 = cardmachine1
+        self.cardmachine1_on_till = cardmachine1_on_till
         self.cardmachine2 = cardmachine2
+        self.cardmachine2_on_till = cardmachine2_on_till
 
     #calculates total cash in a single till
     def total_cash_single_till(self):
@@ -56,6 +58,27 @@ class Calculator:
             return self.cardmachine1.get_total() + self.cardmachine2.get_total()
         else:
             return self.cardmachine1.get_total()
+
+    def find_missing_transaction_amount(self):
+        if self.cardmachine2:
+            missing_amount_till1 = self.cardmachine1.get_total() - self.cardmachine1_on_till.get_total()
+            missing_no_of_transactions_till1 = self.cardmachine1.get_noOfTransactions() - self.cardmachine1_on_till.get_noOfTransactions()
+            missing_amount_till2 = self.cardmachine2.get_total() - self.cardmachine2_on_till.get_total()
+            missing_no_of_transactions_till2 = self.cardmachine2.get_noOfTransactions() - self.cardmachine2_on_till.get_noOfTransactions()
+
+            return{
+                "till1_missing_amount" : missing_amount_till1,
+                "till2_missing_amount" : missing_amount_till2,
+                "till1_no_of_missing_transactions" : missing_no_of_transactions_till1,
+                "till2_no_of_missing_transactions" : missing_no_of_transactions_till2
+            }
+        else:
+            missing_amount_till1 = self.cardmachine1.get_total() - self.cardmachine1_on_till.get_total()
+            missing_no_of_transactions_till1 = self.cardmachine1.get_noOfTransactions() - self.cardmachine1_on_till.get_noOfTransactions()
+            return {
+                "till1_missing_amount" : missing_amount_till1,
+                "till1_no_of_missing_transactions" : missing_no_of_transactions_till1
+            }
         
     
     def total_funds(self):
