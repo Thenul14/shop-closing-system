@@ -66,19 +66,32 @@ class Calculator:
             missing_amount_till2 = self.cardmachine2.get_total() - self.cardmachine2_on_till.get_total()
             missing_no_of_transactions_till2 = self.cardmachine2.get_noOfTransactions() - self.cardmachine2_on_till.get_noOfTransactions()
 
-            return{
-                "till1_missing_amount" : missing_amount_till1,
-                "till2_missing_amount" : missing_amount_till2,
-                "till1_no_of_missing_transactions" : missing_no_of_transactions_till1,
-                "till2_no_of_missing_transactions" : missing_no_of_transactions_till2
-            }
+            if missing_amount_till1 > 0 or missing_amount_till2 > 0:
+                return{
+                    "flag" : True,
+                    "till1_missing_amount" : missing_amount_till1,
+                    "till2_missing_amount" : missing_amount_till2,
+                    "till1_no_of_missing_transactions" : missing_no_of_transactions_till1,
+                    "till2_no_of_missing_transactions" : missing_no_of_transactions_till2
+                }
+            else:
+                return{
+                    "flag" : False
+                }
         else:
             missing_amount_till1 = self.cardmachine1.get_total() - self.cardmachine1_on_till.get_total()
             missing_no_of_transactions_till1 = self.cardmachine1.get_noOfTransactions() - self.cardmachine1_on_till.get_noOfTransactions()
-            return {
-                "till1_missing_amount" : missing_amount_till1,
-                "till1_no_of_missing_transactions" : missing_no_of_transactions_till1
-            }
+
+            if missing_amount_till1 > 0:
+                return {
+                    "flag" : True,
+                    "till1_missing_amount" : missing_amount_till1,
+                    "till1_no_of_missing_transactions" : missing_no_of_transactions_till1
+                }
+            else:
+                return{
+                    "flag" : False
+                }
         
     
     def total_funds(self):
