@@ -4,7 +4,8 @@ import time
 st.set_page_config(
     page_title="Cashier Balance System",
     page_icon="💷",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="collapsed"
 )
 
 st.title("💷 Cashier Balance System")
@@ -19,6 +20,6 @@ st.write(
 
 if st.button("Let's start"):
     
-    with st.spinner("Starting......"):
+    with st.spinner("Starting......."):
         time.sleep(1)
         st.switch_page("pages/No_Of_Tills.py")
