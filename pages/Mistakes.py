@@ -38,5 +38,12 @@ if missing_details["flag"] == True:
         with st.spinner("Calculating Summary..."):
             time.sleep(1)
             st.switch_page("pages/ABCDE.py")
+else:
+    st.success("Tills and Card Machines are Balance. You can go to the next step. Click the button below.")
+    if st.button("Go to next step"):
+              
+            with st.spinner("Calculating Summary..."):
+                time.sleep(1)
+                st.switch_page("pages/ABCDE.py")
             
             
