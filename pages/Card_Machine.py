@@ -33,4 +33,4 @@ if st.button("Enter the cardmachine details"):
     
     with st.spinner("Calculating transactions"):
         time.sleep(1)
-        st.switch_page("pages/Summary.py")
+        st.switch_page("pages/Mistakes.py")
